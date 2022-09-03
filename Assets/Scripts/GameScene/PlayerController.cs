@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     bool moving = true;
     bool rushing = false;
     bool exercise = false;
-    bool cameraMoveOK = false;
+    [SerializeField]bool cameraMoveOK = false;
     bool stopMove = false;
     // Start is called before the first frame update
     private void FixedUpdate()
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
             AddSanityValue(rushSanityValue);
             StartCoroutine(ReduceRushingTime());
         }
-        if(sanityValue > 0f && !exercise)
+        if(sanityValue > 0f && !stopMove)
         {
             SubSanityValue(autoSubSanityValue * Time.deltaTime);
         }
@@ -76,8 +76,6 @@ public class PlayerController : MonoBehaviour
     }
     void SubSanityValue(float value)
     {
-        print(value);
-        print(sanityValue - value);
         sanityValue = Mathf.Clamp(sanityValue - value, 0f, 100f);
         progress.GetComponent<ProgessController>().ChangeValue(sanityValue);
     }
@@ -139,15 +137,40 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void MoveCamera(bool orignal)
+    {
+        cameraMoveOK = false;
+        Vector3 targetCameraPosition;
+        if (orignal)
+        {
+            targetCameraPosition =
+                    new Vector3(Camera.main.transform.localPosition.x,
+                                Camera.main.transform.localPosition.y,
+                                orignalCameraZ);
+        }
+        else
+        {
+            targetCameraPosition =
+                    new Vector3(Camera.main.transform.localPosition.x,
+                                Camera.main.transform.localPosition.y,
+                                exerciseCameraZ);
+        }
+        StartCoroutine(MoveCamera(targetCameraPosition));
+    }
     IEnumerator MoveCamera(Vector3 targetCameraPosition)
     {
-        while(Vector3.Distance(targetCameraPosition, Camera.main.transform.localPosition) > 0.1f)
+        while(Vector3.Distance(targetCameraPosition, Camera.main.transform.localPosition) > 0.01f)
         {
             Camera.main.transform.localPosition = Vector3.MoveTowards(
                     Camera.main.transform.localPosition, targetCameraPosition, 0.0002f);
             yield return null;
         }
         cameraMoveOK = true;
+        print("move camera ok");
+    }
+    public void SetCameraMoveStatus(bool status)
+    {
+        cameraMoveOK = status;
     }
     public bool GetCameraMoveStatus()
     {
@@ -156,6 +179,9 @@ public class PlayerController : MonoBehaviour
     public void SetExerciseStatus(bool status)
     {
         exercise = status;
-        if (!exercise) stopMove = false;
+    }
+    public void SetStopMoveStatus(bool status)
+    {
+        stopMove = status;
     }
 }

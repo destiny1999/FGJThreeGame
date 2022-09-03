@@ -37,13 +37,21 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+        player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetExerciseStatus(true);
         exerciseInfo.GetComponent<ExerciseInfoSetting>().SetInfo(code);
     }
-    public void ExecriseOK()
+    public IEnumerator ExecriseOK(GameObject exercisingInfoObject)
     {
-        Destroy(GameObject.Find("newExerciseObject"));
         player.GetComponent<PlayerController>().SetExerciseStatus(false);
-        Debug.Log("ExecriseOK");
+        Destroy(GameObject.Find("newExerciseObject"));
+        player.GetComponent<PlayerController>().MoveCamera(true);
+        while (!player.GetComponent<PlayerController>().GetCameraMoveStatus())
+        {
+            yield return null;
+        }
+        player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
+        player.GetComponent<PlayerController>().SetStopMoveStatus(false);
+        exercisingInfoObject.SetActive(false);
     }
 }

@@ -9,6 +9,7 @@ public class ExerciseInfoSetting : MonoBehaviour
     [SerializeField] List<int> exerciseTimes;
     [SerializeField] List<Sprite> allTipsSprite;
     [SerializeField] Text timesText;
+    [SerializeField] GameObject UIInfo;
     int times = 0;
     int type = 0;
     KeyCode thisKeyCode = KeyCode.None;
@@ -27,12 +28,12 @@ public class ExerciseInfoSetting : MonoBehaviour
         }
         if (thisKeyCode!= KeyCode.None && Input.GetKeyDown(thisKeyCode))
         {
-            print("sub 1");
             times--;
             if(times == 0)
             {
-                GameManager.Instance.ExecriseOK();
-                gameObject.SetActive(false);
+                UIInfo.SetActive(false);
+                StartCoroutine(GameManager.Instance.ExecriseOK(this.gameObject));
+                //gameObject.SetActive(false);
             }
         }
         
@@ -48,6 +49,7 @@ public class ExerciseInfoSetting : MonoBehaviour
                 break;
         }
         inputButtonTip.sprite = allTipsSprite[type];
+        UIInfo.SetActive(true);
         this.gameObject.SetActive(true);
     }
 }
