@@ -8,6 +8,9 @@ TagManager:
   - Daughter
   - NewPlaneTrigger
   - SolidObstacle
+  - h
+  - obstacle
+  - s
   layers:
   - Default
   - TransparentFX
