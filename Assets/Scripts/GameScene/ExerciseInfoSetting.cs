@@ -47,6 +47,18 @@ public class ExerciseInfoSetting : MonoBehaviour
             case 0:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "T");
                 break;
+            case 1:
+                thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Q");
+                break;
+            case 2:
+                thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "W");
+                break;
+            case 3:
+                thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "E");
+                break;
+            case 4:
+                thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "R");
+                break;
         }
         inputButtonTip.sprite = allTipsSprite[type];
         UIInfo.SetActive(true);

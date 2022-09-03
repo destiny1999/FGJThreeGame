@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rushTime;
     [SerializeField] float rushSanityValue;
     [SerializeField] float autoSubSanityValue;
+    [SerializeField] float cameraMoveSpeed;
+    [SerializeField] float originalY = -2.23f;
     [SerializeField] GameObject progress;
     float sanityValue;
     float speed;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     bool exercise = false;
     [SerializeField]bool cameraMoveOK = false;
     bool stopMove = false;
+    
     // Start is called before the first frame update
     private void FixedUpdate()
     {
@@ -42,6 +45,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Camera.main.transform.position = new Vector3(transform.position.x,
+                                                     Camera.main.transform.position.y,
+                                                     Camera.main.transform.position.z);
         if (rushing)
         {
             speed = rushSpeed;
@@ -123,6 +129,10 @@ public class PlayerController : MonoBehaviour
             if (!jumpping && rushing) sliding = true;
             if (!exercise && !sliding)
             {
+                jumpping = false;
+                //transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                transform.localPosition = new Vector3(transform.localPosition.x, originalY,
+                                                      transform.localPosition.z);
                 Vector3 targetCameraPosition = 
                     new Vector3(Camera.main.transform.localPosition.x,
                                 Camera.main.transform.localPosition.y,
@@ -159,10 +169,14 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator MoveCamera(Vector3 targetCameraPosition)
     {
-        while(Vector3.Distance(targetCameraPosition, Camera.main.transform.localPosition) > 0.01f)
+        print("start to move camera");
+        
+        while(Mathf.Abs(targetCameraPosition.z - Camera.main.transform.localPosition.z) > 0.11f)
         {
-            Camera.main.transform.localPosition = Vector3.MoveTowards(
-                    Camera.main.transform.localPosition, targetCameraPosition, 0.0002f);
+            int weight = targetCameraPosition.z == orignalCameraZ ? -1 : 1;
+            Camera.main.transform.Translate(Vector3.forward * weight * cameraMoveSpeed);
+            /*Camera.main.transform.localPosition = Vector3.MoveTowards(
+                    Camera.main.transform.localPosition, targetCameraPosition, cameraMoveSpeed);*/
             yield return null;
         }
         cameraMoveOK = true;

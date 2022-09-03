@@ -33,10 +33,12 @@ public class GameManager : MonoBehaviour
     IEnumerator ExecuteExercise(int code)
     {
         // wait for camera move ok and start to execrise
+        print("wait for camera");
         while (!player.GetComponent<PlayerController>().GetCameraMoveStatus())
         {
             yield return null;
         }
+        print("camera ok");
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetExerciseStatus(true);
         exerciseInfo.GetComponent<ExerciseInfoSetting>().SetInfo(code);
