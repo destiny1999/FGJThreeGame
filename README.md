@@ -1,0 +1,2 @@
+# FGJThreeGame
+only three people
