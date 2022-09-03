@@ -9,11 +9,12 @@ public class ChangeLight : MonoBehaviour
 
     Color  newColor;
     Light2D It; 
+    float Standard =1;
+
     // Start is called before the first frame update
     void Start()
     {
         It = GetComponent<Light2D>();
-        newColor = Color.HSVToRGB(Random.Range(0, 360), 80, 80);
     }
 
     // Update is called once per frame
@@ -21,7 +22,18 @@ public class ChangeLight : MonoBehaviour
     {
         
         float t = Mathf.PingPong(Time.time, duration) / duration;
-        It.color = Color.Lerp(Color.black, Color.white, t);
+        It.color = Color.Lerp(Color.black, Getcolor(), t);
         
+    }
+
+    float GetStandad (float Standard)
+    {
+        return (Random.Range(0,Standard )); 
+    }
+
+    Color Getcolor()
+    {
+        newColor = new Vector4(GetStandad(Standard), GetStandad(Standard), GetStandad(Standard));
+        return newColor; 
     }
 }
