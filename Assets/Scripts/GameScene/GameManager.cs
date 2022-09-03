@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject planeObject;
     [SerializeField] Transform planeManager;
     [SerializeField] float eachPlaneDistance;
     [SerializeField][Tooltip("Show object after collision")] List<GameObject> exerciseObject;
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
         print("camera ok");
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetExerciseStatus(true);
+        print("go to set info");
         exerciseInfo.GetComponent<ExerciseInfoSetting>().SetInfo(code);
     }
     public IEnumerator ExecriseOK(GameObject exercisingInfoObject)

@@ -20,26 +20,28 @@ public class PlayerController : MonoBehaviour
     bool jumpping = false;
     bool jump = false;
     bool moving = true;
-    bool rushing = false;
+    [SerializeField]bool rushing = false;
     bool exercise = false;
     [SerializeField]bool cameraMoveOK = false;
-    bool stopMove = false;
-    
+    [SerializeField] bool stopMove = false;
+    Animator ani;
+    private void Start()
+    {
+        ani = this.GetComponent<Animator>();
+    }
     // Start is called before the first frame update
     private void FixedUpdate()
     {
         if (moving)
         {
-            transform.Translate(Vector2.right * Time.deltaTime * speed);
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
         }
         
         if (jumpping)
         {
-            transform.Translate(Vector2.up * Time.deltaTime * jumpForce);
+            transform.Translate(Vector3.up * Time.deltaTime * jumpForce);
             jump = false;
         }
-
-        
     }
 
     // Update is called once per frame
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (stopMove)
         {
+            BackgroundController.Instance.ChangeAllBackgroundsStatu(false);
             speed = 0;
         }
         else
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && !rushing && !stopMove)
         {
             rushing = true;
+            ani.SetBool("rusing", rushing);
             AddSanityValue(rushSanityValue);
             StartCoroutine(ReduceRushingTime());
         }
@@ -95,7 +99,8 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         rushing = false;
-        GetComponent<Rigidbody2D>().gravityScale = 1;
+        ani.SetBool("rusing", rushing);
+        GetComponent<Rigidbody2D>().gravityScale = 2;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -125,9 +130,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.transform.CompareTag("obstacle"))
         {
-            bool sliding = false;
-            if (!jumpping && rushing) sliding = true;
-            if (!exercise && !sliding)
+            /*
+            bool Invincible = false;
+            if (!jumpping && rushing) sliding = true;*/
+            if (!exercise && !rushing)
             {
                 jumpping = false;
                 //transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -145,6 +151,12 @@ public class PlayerController : MonoBehaviour
                     GetExerciseCode());
                 Destroy(collision.transform.gameObject);
             }
+        }
+        if (collision.transform.CompareTag("newBackgroundTrigger"))
+        {
+            print("into");
+            BackgroundController.Instance.CreateNewBackground(collision.transform.parent.GetComponent<BackgroundSetting>().backgroundCode,
+                                                              collision.transform.parent.position);
         }
     }
     public void MoveCamera(bool orignal)
@@ -175,8 +187,6 @@ public class PlayerController : MonoBehaviour
         {
             int weight = targetCameraPosition.z == orignalCameraZ ? -1 : 1;
             Camera.main.transform.Translate(Vector3.forward * weight * cameraMoveSpeed);
-            /*Camera.main.transform.localPosition = Vector3.MoveTowards(
-                    Camera.main.transform.localPosition, targetCameraPosition, cameraMoveSpeed);*/
             yield return null;
         }
         cameraMoveOK = true;
@@ -197,5 +207,9 @@ public class PlayerController : MonoBehaviour
     public void SetStopMoveStatus(bool status)
     {
         stopMove = status;
+        if (!stopMove)
+        {
+            BackgroundController.Instance.ChangeAllBackgroundsStatu(true);
+        }
     }
 }

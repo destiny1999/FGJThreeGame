@@ -28,6 +28,7 @@ public class ExerciseInfoSetting : MonoBehaviour
         }
         if (thisKeyCode!= KeyCode.None && Input.GetKeyDown(thisKeyCode))
         {
+            print("press");
             times--;
             if(times == 0)
             {
@@ -40,6 +41,8 @@ public class ExerciseInfoSetting : MonoBehaviour
     }
     public void SetInfo(int type)
     {
+        print(type);
+        print("set exercise info");
         times = exerciseTimes[type];
         this.type = type;
         switch (type)
@@ -60,6 +63,7 @@ public class ExerciseInfoSetting : MonoBehaviour
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "R");
                 break;
         }
+        print(thisKeyCode.ToString());
         inputButtonTip.sprite = allTipsSprite[type];
         UIInfo.SetActive(true);
         this.gameObject.SetActive(true);
