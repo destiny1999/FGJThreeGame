@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ScenceLoad : MonoBehaviour
 {
     [SerializeField] float time = 10; 
+    bool starttoquit = false; 
     bool loadscence = false; 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,14 @@ public class ScenceLoad : MonoBehaviour
             if(time<=0)
             {
                 LoadScene();
+            }
+        }
+        if(starttoquit ==true)
+        {
+            time--;
+            if(time<=0)
+            {
+                Quit();
             }
         }
         
@@ -42,5 +51,10 @@ public class ScenceLoad : MonoBehaviour
     public void starttoload()
     {
         loadscence = true;
+    }
+
+    public void startingtoquit()
+    {
+        starttoquit = true;
     }
 }
