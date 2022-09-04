@@ -7,6 +7,11 @@ public class anykey : MonoBehaviour
 {
     private float Time = 3f; 
     public GameObject Text; 
+
+    public AudioSource audio; 
+
+    float time = 100; 
+    bool  loadscence = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +23,20 @@ public class anykey : MonoBehaviour
     {
         if(Input.anyKey)
         {
-            DontDestroyOnLoad(GameObject.Find("NextSceneInfo"));
-            SceneManager.LoadScene("LoadingScence");
+            loadscence = true; 
+            audio.Play();
+           
+        }
+
+        if(loadscence ==true)
+        {
+            time--;
+            if(time<=0)
+            {
+                DontDestroyOnLoad(GameObject.Find("NextSceneInfo"));
+                SceneManager.LoadScene("LoadingScence");
+            }
+
         }
         ShowText();
     }
