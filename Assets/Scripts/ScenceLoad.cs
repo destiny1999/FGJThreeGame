@@ -44,9 +44,9 @@ public class ScenceLoad : MonoBehaviour
     public void LoadScene()
     {
         
-        DontDestroyOnLoad(GameObject.Find("NextSceneInfo"));
+        //DontDestroyOnLoad(GameObject.Find("NextSceneInfo"));
         // SceneManager.LoadScene("SampleScene");
-        SceneManager.LoadScene("LoadingScence");
+        SceneManager.LoadScene("GameScene");
     }
     public void starttoload()
     {
