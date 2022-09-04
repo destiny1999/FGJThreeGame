@@ -22,17 +22,17 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    public void CreateExerciseObject(int code)
+    public void CreateExerciseObject(int code, Vector3 position)
     {
         Transform playerTransform= player.transform;
-        GameObject newExerciseObject = Instantiate(exerciseObject[code],playerTransform);
+        GameObject newExerciseObject = Instantiate(exerciseObject[code]);
+        newExerciseObject.transform.position = position;
         newExerciseObject.name = "newExerciseObject";
         StartCoroutine(ExecuteExercise(code));
     }
     IEnumerator ExecuteExercise(int code)
     {
         // wait for camera move ok and start to execrise
-        print("wait for camera");
         while (!player.GetComponent<PlayerController>().GetCameraMoveStatus())
         {
             yield return null;
@@ -40,11 +40,11 @@ public class GameManager : MonoBehaviour
         print("camera ok");
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetExerciseStatus(true);
-        print("go to set info");
         exerciseInfo.GetComponent<ExerciseInfoSetting>().SetInfo(code);
     }
     public IEnumerator ExecriseOK(GameObject exercisingInfoObject)
     {
+        player.GetComponent<SpriteRenderer>().enabled = true;
         player.GetComponent<PlayerController>().SetExerciseStatus(false);
         Destroy(GameObject.Find("newExerciseObject"));
         player.GetComponent<PlayerController>().MoveCamera(true);
@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         }
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetStopMoveStatus(false);
+        
         exercisingInfoObject.SetActive(false);
     }
 }

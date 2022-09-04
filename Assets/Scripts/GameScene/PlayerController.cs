@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject dialogSystem;
+    [SerializeField] Sprite talkSprite;
     [SerializeField] float orignalCameraZ;
     [SerializeField] float exerciseCameraZ;
     [SerializeField] float moveSpeed;
@@ -149,15 +151,24 @@ public class PlayerController : MonoBehaviour
                 stopMove = true;
 
                 GameManager.Instance.CreateExerciseObject(collision.GetComponent<ExerciseSetting>().
-                    GetExerciseCode());
+                    GetExerciseCode(), collision.transform.position);
+                this.GetComponent<SpriteRenderer>().enabled = false;
                 Destroy(collision.transform.gameObject);
             }
         }
         if (collision.transform.CompareTag("newBackgroundTrigger"))
         {
-            print("into");
             BackgroundController.Instance.CreateNewBackground(collision.transform.parent.GetComponent<BackgroundSetting>().backgroundCode,
                                                               collision.transform.parent.position);
+        }
+        if (collision.transform.CompareTag("endLevelCharacter"))
+        {
+            stopMove = true;
+            ani.enabled = false;
+            GetComponent<SpriteRenderer>().sprite = talkSprite;
+            Debug.Log("end level");
+            dialogSystem.SetActive(true);
+            progress.SetActive(false);
         }
     }
     public void MoveCamera(bool orignal)
@@ -182,7 +193,6 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator MoveCamera(Vector3 targetCameraPosition)
     {
-        print("start to move camera");
         
         while(Mathf.Abs(targetCameraPosition.z - Camera.main.transform.localPosition.z) > 0.11f)
         {

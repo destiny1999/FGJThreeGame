@@ -12,6 +12,7 @@ TagManager:
   - obstacle
   - s
   - newBackgroundTrigger
+  - endLevelCharacter
   layers:
   - Default
   - TransparentFX
