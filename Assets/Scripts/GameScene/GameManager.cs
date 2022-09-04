@@ -28,30 +28,32 @@ public class GameManager : MonoBehaviour
         GameObject newExerciseObject = Instantiate(exerciseObject[code]);
         newExerciseObject.transform.position = position;
         newExerciseObject.name = "newExerciseObject";
-        StartCoroutine(ExecuteExercise(code));
+        ExecuteExercise(code);
     }
-    IEnumerator ExecuteExercise(int code)
+    void ExecuteExercise(int code)
     {
         // wait for camera move ok and start to execrise
+        /*
         while (!player.GetComponent<PlayerController>().GetCameraMoveStatus())
         {
             yield return null;
-        }
+        }*/
         print("camera ok");
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetExerciseStatus(true);
         exerciseInfo.GetComponent<ExerciseInfoSetting>().SetInfo(code);
     }
-    public IEnumerator ExecriseOK(GameObject exercisingInfoObject)
+    public void ExecriseOK(GameObject exercisingInfoObject)
     {
         player.GetComponent<SpriteRenderer>().enabled = true;
         player.GetComponent<PlayerController>().SetExerciseStatus(false);
         Destroy(GameObject.Find("newExerciseObject"));
-        player.GetComponent<PlayerController>().MoveCamera(true);
+        //player.GetComponent<PlayerController>().MoveCamera(true);
+        /*
         while (!player.GetComponent<PlayerController>().GetCameraMoveStatus())
         {
             yield return null;
-        }
+        }*/
         player.GetComponent<PlayerController>().SetCameraMoveStatus(false);
         player.GetComponent<PlayerController>().SetStopMoveStatus(false);
         

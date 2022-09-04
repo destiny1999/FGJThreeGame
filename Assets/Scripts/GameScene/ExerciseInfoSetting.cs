@@ -39,7 +39,7 @@ public class ExerciseInfoSetting : MonoBehaviour
             if(times == 0)
             {
                 UIInfo.SetActive(false);
-                StartCoroutine(GameManager.Instance.ExecriseOK(this.gameObject));
+                GameManager.Instance.ExecriseOK(this.gameObject);
                 //gameObject.SetActive(false);
             }
         }
