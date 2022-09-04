@@ -66,12 +66,12 @@ public class PlayerController : MonoBehaviour
         {
             speed = moveSpeed;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !stopMove)
+        if (Input.GetKeyDown(KeyCode.W) && !stopMove)
         {
             jump = true;
             jumpping = true;
         }
-        if (Input.GetKeyDown(KeyCode.Z) && !rushing && !stopMove)
+        if (Input.GetKeyDown(KeyCode.D) && !rushing && !stopMove)
         {
             rushing = true;
             ani.SetBool("rusing", rushing);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ExerciseInfoSetting : MonoBehaviour
 {
     [SerializeField] Image inputButtonTip;
+    [SerializeField] Text tipText;
     [SerializeField] List<int> exerciseTimes;
     [SerializeField] List<Sprite> allTipsSprite;
     [SerializeField] Text timesText;
@@ -58,18 +59,23 @@ public class ExerciseInfoSetting : MonoBehaviour
         {
             case 0:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "T");
+                tipText.text = "T";
                 break;
             case 1:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Q");
+                tipText.text = "Q";
                 break;
             case 2:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "W");
+                tipText.text = "W";
                 break;
             case 3:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "E");
+                tipText.text = "E";
                 break;
             case 4:
                 thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "R");
+                tipText.text = "R";
                 break;
         }
         print(thisKeyCode.ToString());
