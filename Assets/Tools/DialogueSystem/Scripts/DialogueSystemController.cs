@@ -112,6 +112,9 @@ public class DialogueSystemController : MonoBehaviour
             case 2:
                 dialogueBackground.SetActive(true);
                 break;
+            case 3:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                break;
         }
     }
     IEnumerator ShowRedPanel()

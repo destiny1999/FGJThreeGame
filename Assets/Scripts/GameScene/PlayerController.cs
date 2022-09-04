@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject failedDialogue;
     [SerializeField] GameObject dialogSystem;
     [SerializeField] Sprite talkSprite;
     [SerializeField] float orignalCameraZ;
@@ -119,7 +120,9 @@ public class PlayerController : MonoBehaviour
         progress.GetComponent<ProgessController>().ChangeValue(sanityValue);
         if(sanityValue == 100)
         {
-            Debug.Log("Game finished");
+            stopMove = true;
+            failedDialogue.SetActive(true);
+            //Debug.Log("Game finished");
         }
 
     }
