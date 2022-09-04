@@ -46,6 +46,7 @@ public class BackgroundController : MonoBehaviour
         {
             foreach(Transform child in backgroundParents[i].transform)
             {
+                print(child.name);
                 child.GetComponent<BackgroundSetting>().SetMoveStatus(status);
             }
         }

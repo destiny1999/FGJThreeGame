@@ -550,7 +550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1344054825451300203, guid: e19a0bf65a0eceb4fba43d9773628548, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1344054825451300203, guid: e19a0bf65a0eceb4fba43d9773628548, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -571,6 +571,10 @@ PrefabInstance:
     - target: {fileID: 1344054825451300204, guid: e19a0bf65a0eceb4fba43d9773628548, type: 3}
       propertyPath: m_Name
       value: DialogueSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344054825451300204, guid: e19a0bf65a0eceb4fba43d9773628548, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e19a0bf65a0eceb4fba43d9773628548, type: 3}

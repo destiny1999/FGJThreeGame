@@ -52,3 +52,9 @@ TagManager:
   - name: BackGround
     uniqueID: 603702045
     locked: 0
+  - name: AreaLightLayer
+    uniqueID: 2963050171
+    locked: 0
+  - name: PlayerAndItems
+    uniqueID: 564118805
+    locked: 0

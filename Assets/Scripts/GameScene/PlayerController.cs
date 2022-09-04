@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rushTime;
     [SerializeField] float rushSanityValue;
     [SerializeField] float autoSubSanityValue;
+    [SerializeField] float exerciseAddSanityValue;
     [SerializeField] float cameraMoveSpeed;
     [SerializeField] float originalY = -2.23f;
     [SerializeField] GameObject progress;
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         if (exercise)
         {
-            AddSanityValue(autoSubSanityValue * Time.deltaTime);
+            AddSanityValue(exerciseAddSanityValue * Time.deltaTime);
         }
     }
     void SubSanityValue(float value)
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
         rushing = false;
         ani.SetBool("rusing", rushing);
-        GetComponent<Rigidbody2D>().gravityScale = 2;
+        GetComponent<Rigidbody2D>().gravityScale = 2f;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
