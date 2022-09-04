@@ -31,7 +31,6 @@ public class BackgroundController : MonoBehaviour
     }
     public void CreateNewBackground(int index, Vector3 selfPosition)
     {
-        print("create new");
         GameObject newBackground = Instantiate(backgrounds[index], backgroundParents[index].transform);
         newBackground.transform.position = new Vector3(selfPosition.x + nextPosition,
                                                        selfPosition.y, selfPosition.z);
@@ -46,7 +45,6 @@ public class BackgroundController : MonoBehaviour
         {
             foreach(Transform child in backgroundParents[i].transform)
             {
-                print(child.name);
                 child.GetComponent<BackgroundSetting>().SetMoveStatus(status);
             }
         }

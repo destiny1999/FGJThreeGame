@@ -30,12 +30,21 @@ public class ExerciseInfoSetting : MonoBehaviour
         {
             print("press");
             times--;
+            if(times> 0)
+            {
+                GameObject.Find("newExerciseObject").GetComponent<DoExerciseShowActionController>().ChangeSprite(true);
+            }
+            
             if(times == 0)
             {
                 UIInfo.SetActive(false);
                 StartCoroutine(GameManager.Instance.ExecriseOK(this.gameObject));
                 //gameObject.SetActive(false);
             }
+        }
+        else if(times>0 && thisKeyCode != KeyCode.None && Input.GetKeyUp(thisKeyCode))
+        {
+            GameObject.Find("newExerciseObject").GetComponent<DoExerciseShowActionController>().ChangeSprite(false);
         }
         
     }
